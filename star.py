@@ -23,11 +23,11 @@ def nullable(re):
     else: assert False
 
 def after(ch, re):
-    """Return a list of regexes that collectively match what could follow
-    ch in a match of re. (For example, if ch is 'c', and re matches
-    'x', 'ca', 'cat', and 'cow', and [q,r,s] is the result: that means
-    q|r|s must match 'a', 'at', and 'ow'.) This is called the
-    Brzozowski derivative."""
+    """Imagine all strings starting with ch that re matches; return a list
+    of regexes that among them match the remainders of those strings. (For
+    example, if ch is 'c', and re matches 'x', 'ca', 'cat', and 'cow', and
+    [q,r,s] is the result: that means q|r|s must match 'a', 'at', and 'ow'.)
+    This is called the Brzozowski derivative."""
     tag, r, s = re
     if tag == 'empty':     return []
     elif tag == 'literal': return [empty] if r == ch else []
