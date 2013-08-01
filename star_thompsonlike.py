@@ -12,12 +12,12 @@
 # The point: stepping without allocating new regexes and yet without
 # Thompson's infinite looping. Thompson's code is even simpler, but
 # less correct for our purposes:
+#   * It gets caught in an infinite loop for expressions like /A**/.
 #   * It keeps a list of states instead of a set; the list may blow up
 #     exponentially .
 #   * There's no accepts() function; instead it reports when it runs
 #     into the accept node in after(). So matches get reported at the
 #     next character *after* the match.
-#   * It gets caught in an infinite loop for expressions like /A**/.
 
 # I think I've done a lousy job explaining how we got here; it'll have
 # to do for now.
