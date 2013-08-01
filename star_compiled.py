@@ -7,7 +7,7 @@
 # by a fixed-size bit vector (which we don't bother doing here).
 
 # But it's not the shortest and simplest code we could write: that'd
-# be Thompson's algorithm. See XXX.py
+# be Thompson's algorithm. See star_thompsonlike.py.
 
 def search(re, chars):
     """Given a regular expression and an iterator of chars, return True
