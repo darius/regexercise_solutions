@@ -1,23 +1,23 @@
-# Let's try to refactor star.py into an almost-Thompson algorithm.
-# The idea: represent a regex with tree nodes augmented with a 'chain'
-# link that can be cyclic. The nodes plus the chains form the Thompson
-# NFA graph, but a node can be labeled with 'star' (as well as
-# Thompson's 'literal' and 'either' nodes), and we derive the action
-# code from star.py's nullable() and after(). A sub-regex is
-# represented by a *pair* of a regex node and the node to follow it:
-# this represents the regex *between* the start and the follow. So you
-# can ask after(ch, start, follow) as the equivalent of after(ch, re)
-# in star.py, etc.
+# Let's refactor star.py into an almost-Thompson algorithm. The idea:
+# represent a regex with tree nodes augmented with a 'chain' link that
+# can be cyclic. The nodes plus the chains form the Thompson NFA
+# graph, but a node can be labeled with 'star' (as well as Thompson's
+# 'literal' and 'either' nodes), and we derive the action code from
+# star.py's nullable() and after(). A sub-regex is represented by a
+# *pair* of a regex node and the node to follow it: this represents
+# the regex *between* the start and the follow. So you can ask
+# after(ch, start, follow) as the equivalent of after(ch, re) in
+# star.py, etc.
 
 # The point: stepping without allocating new regexes and yet without
 # Thompson's infinite looping. Thompson's code is even simpler, but
 # less correct for our purposes:
 #   * It gets caught in an infinite loop for expressions like /A**/.
 #   * It keeps a list of states instead of a set; the list may blow up
-#     exponentially .
+#     exponentially.
 #   * There's no accepts() function; instead it reports when it runs
-#     into the accept node in after(). So matches get reported at the
-#     next character *after* the match.
+#     into the accept node in after(). So matches get reported upon
+#     scanning the next character *after* the match.
 
 # I think I've done a lousy job explaining how we got here; it'll have
 # to do for now.
@@ -55,7 +55,7 @@ def after(ch, start, end):
 # Since the compiled graph has loops in it, we can't represent it as
 # a tree of tuples anymore. Instead a node is an index into the nodes
 # array, each element of which is a tuple like we had before.
-accept = -1                   # A sentinel node that's never accessed.
+accept = -1  # A sentinel node that's never accessed.
 nodes = []
 
 def add(tag, r, s):
@@ -72,4 +72,3 @@ def star(r):
         nodes[node] = ('star', r(node), k)
         return node
     return rstar
-
