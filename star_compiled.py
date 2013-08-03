@@ -1,8 +1,8 @@
 # This seems to me the most direct and obvious change to star.py:
 # where star.py computed Antimirov derivatives of the current states
 # with respect to the current input character, this code precomputes
-# all of the derivatives that can ever come up, building a table of
-# them. Now the only allocating done at match time will be in
+# all of the derivatives that can possibly come up, building a table
+# of them. Now the only allocating done at match time will be in
 # collecting the states into a set; but this set could be represented
 # by a fixed-size bit vector (which we don't bother doing here).
 
