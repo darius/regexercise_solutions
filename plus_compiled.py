@@ -17,43 +17,38 @@ def search(re, chars):
     states = set()
     for ch in chars:
         states.add(re)
-        states = set().union(*[nfa[state].get(ch, set()) for state in states])
+        states = set().union(*[nfa[state].get(ch, ()) for state in states])
         if empty in states:
             return True
     return False
 
 def prepare(re):
-    "Return an NFA for matching re, where the states are regular expressions."
-    result, agenda = {}, set([re])
+    """Return an NFA for matching re, where the states are regular
+    expressions. It's a dict mapping each state to a dict mapping
+    from each char to its set of successor states."""
+    nfa, agenda = {}, set([re])
     while agenda:
         state = agenda.pop()
-        if state not in result:
-            result[state] = moves(state)
-            agenda.update(*result[state].values())
-    return result
+        if state not in nfa:
+            nfa[state] = succs = {}
+            for ch, state2 in moves(state):
+                succs.setdefault(ch, set()).add(state2)
+                agenda.add(state2)
+    return nfa
 
 def moves(re):
-    """Return a dict from char to set of regular expressions: re's 
-    transitions as a state in an NFA."""
+    "Return a tuple of all of re's transitions as a state in an NFA."
     tag, r, s = re
-    if tag == 'empty':     return {}
-    elif tag == 'literal': return {r: set([empty])}
+    if tag == 'empty':     return ()
+    elif tag == 'literal': return ((r, empty),)
     elif tag == 'chain':   return chaining(r, s)
-    elif tag == 'either':  return union(moves(r), moves(s))
-    elif tag == 'plus':    return union(moves(r), chaining(r, re))
+    elif tag == 'either':  return moves(r) + moves(s)
+    elif tag == 'plus':    return moves(r) + chaining(r, re)
     else: assert False
 
 def chaining(r, s):
     "Return the moves for chain(r, s)."
-    return dict((ch, set(chain(r_rest, s) for r_rest in res))
-                for ch, res in moves(r).items())
-
-def union(moves1, moves2):
-    "Return a moves dict incorporating all moves from both arguments."
-    result = dict(moves1)
-    for ch, res in moves2.items():
-        result[ch] = result.get(ch, set()) | res
-    return result
+    return tuple((ch, chain(r_rest, s)) for ch, r_rest in moves(r))
 
 # Regular-expression constructors; the re above is built by these.
 empty = ('empty', None, None)
