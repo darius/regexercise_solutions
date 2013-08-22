@@ -6,7 +6,7 @@ def run(states, s):
     if accepting_state in states:
         return True
     for c in s:
-        states = set.union(*[state(c) for state in states])
+        states = set().union(*[state(c) for state in states])
         if accepting_state in states:
             return True
     return False
