@@ -20,7 +20,9 @@
 start   set     r4,,states1
         set     r5,r4
         set     r6,,states2
-        set     r7,r6
+        set     r2,,code        ; make states2 hold one state: code
+        store   r2,r6
+        set     r7,r6,1
                 
 ; Advance to the next character of input, swapping the state-arrays.
 advance set     r2,,advance
@@ -31,7 +33,7 @@ advance set     r2,,advance
         set     r6,r7           ; new next = old current states
         getch   r1
         set     r8,r4           ; next current state = the first one
-        jump    ,,code     ; but start at `code`, an implicit current state
+        jump    ,,fail          ; start going through the current states
         
         zeroes  20-__here__
 	

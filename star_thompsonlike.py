@@ -28,9 +28,8 @@ def search(re, chars):
 def run(start, chars):
     if accepts(start):
         return True
-    states = set()
+    states = set([start])
     for ch in chars:
-        states.add(start)
         states = set(sum((after(ch, state, accept) for state in states), []))
         if any(map(accepts, states)):
             return True

@@ -2,12 +2,10 @@
 
 def search(re, s): return run(prepare(re), s)
 
-def run(start_states, s):
-    if accepting_state in start_states:
+def run(states, s):
+    if accepting_state in states:
         return True
-    states = set()
     for c in s:
-        states.update(start_states)
         states = set.union(*[state(c) for state in states])
         if accepting_state in states:
             return True

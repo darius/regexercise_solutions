@@ -9,9 +9,8 @@ def search(re, chars):
     return run(re(accept), chars)
 
 def run(start, chars):
-    states = set()
+    states = set([start])
     for ch in chars:
-        states.add(start)
         states = set(sum((after(ch, state) for state in states), []))
         if any(map(accepts, states)):
             return True

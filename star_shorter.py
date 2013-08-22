@@ -8,9 +8,8 @@ def search(re, chars):
     chars up to the end of the match."""
     if nullable(re):
         return True
-    states = set()
+    states = set([re])
     for ch in chars:
-        states.add(re)
         states = set(sum((after(ch, state) for state in states), []))
         if any(map(nullable, states)):
             return True

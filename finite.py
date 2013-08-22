@@ -1,10 +1,9 @@
 def search(re, chars):
-    """Given a regular expression and an iterator of chars, return True
-    if re matches some substring of ''.join(chars); but only consume
-    chars up to the end of the match."""
-    states = set()
+    """Given a regular expression and an iterator of chars, return True if
+    re matches some prefix of ''.join(chars); but only consume chars
+    up to the end of the match."""
+    states = set([re])
     for ch in chars:
-        states.add(re)
         states = set(sum((after(ch, state) for state in states), []))
         if empty in states:
             return True
