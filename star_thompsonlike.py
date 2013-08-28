@@ -64,7 +64,6 @@ def add(tag, r, s):
 def literal(ch):  return lambda k: add('literal', ch, k)
 def chain(r, s):  return lambda k: r(s(k))
 def either(r, s): return lambda k: add('either', r(k), s(k))
-def plus(r):      return chain(r, star(r))
 def star(r):
     def rstar(k):
         node = add('star', None, k)

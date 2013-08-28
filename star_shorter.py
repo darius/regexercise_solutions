@@ -40,6 +40,5 @@ def after(ch, re):
 def literal(char): return ('literal', char, None)
 def chain(r, s):   return s if r is empty else ('chain', r, s)
 def either(r, s):  return ('either', r, s)
-def plus(r):       return chain(r, star(r))
 def star(r):       return ('star', r, None)
 empty = literal(None)
