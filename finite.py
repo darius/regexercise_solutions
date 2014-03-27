@@ -12,8 +12,8 @@ def search(re, chars):
 def after(ch, re):
     """Imagine all strings starting with ch that re matches; return a list
     of regexes that among them match the remainders of those strings. (For
-    example, if ch is 'c', and re matches 'x', 'ca', 'cat', and 'cow', and
-    [q,r,s] is the result: that means q|r|s must match 'a', 'at', and 'ow'.)
+    example, say ch is 'c', and re matches 'x', 'ca', 'cat', and 'cow', and
+    [q,r,s] is the result: that'd mean q|r|s must match 'a', 'at', and 'ow'.)
     This is called the Antimirov derivative."""
     tag, r, s = re
     if tag == 'empty':     return []
