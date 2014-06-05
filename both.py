@@ -14,7 +14,7 @@ def search(re, chars):
 def nullable(re):
     "Does re match the empty string?"
     tag, r, s = re
-    if tag == 'empty':     return True
+    if   tag == 'empty':   return True
     elif tag == 'literal': return False
     elif tag == 'chain':   return nullable(r) and nullable(s)
     elif tag == 'either':  return nullable(r) or nullable(s)
@@ -29,7 +29,7 @@ def after(ch, re):
     [q,r,s] is the result: that'd mean q|r|s must match 'a', 'at', and 'ow'.)
     This is called the Antimirov derivative."""
     tag, r, s = re
-    if tag == 'empty':     return []
+    if   tag == 'empty':   return []
     elif tag == 'literal': return [empty] if r == ch else []
     elif tag == 'chain':
         dr_s = [chain(r_rest, s) for r_rest in after(ch, r)]

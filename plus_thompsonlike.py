@@ -24,10 +24,10 @@ def accepts(state):
         state = r
 
 def after(ch, start):
-    if start == accept:   return []
+    if start == accept:    return []
     tag, r, s = nodes[start]
-    if tag == 'literal':  return [s] if r == ch else []
-    elif tag == 'either': return after(ch, r) + after(ch, s)
+    if   tag == 'literal': return [s] if r == ch else []
+    elif tag == 'either':  return after(ch, r) + after(ch, s)
     else: assert False
 
 # Since the compiled graph has loops in it, we can't represent it as

@@ -27,7 +27,7 @@ def after(ch, re):
     ch may be None; in this case return a nonempty list if re matches the
     empty string."""
     tag, r, s = re
-    if tag == 'literal':   return [empty] if r == ch else []
+    if   tag == 'literal': return [empty] if r == ch else []
     elif tag == 'chain':
         dr_s = [chain(r_rest, s) for r_rest in after(ch, r)]
         return dr_s + after(ch, s) if nullable(r) else dr_s

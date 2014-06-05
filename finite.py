@@ -16,7 +16,7 @@ def after(ch, re):
     [q,r,s] is the result: that'd mean q|r|s must match 'a', 'at', and 'ow'.)
     This is called the Antimirov derivative."""
     tag, r, s = re
-    if tag == 'empty':     return []
+    if   tag == 'empty':   return []
     elif tag == 'literal': return [empty] if r == ch else []
     elif tag == 'chain':   return [chain(r_rest, s) for r_rest in after(ch, r)]
     elif tag == 'either':  return after(ch, r) + after(ch, s)

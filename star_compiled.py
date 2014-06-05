@@ -40,7 +40,7 @@ def prepare(re):
 def moves(re):
     "Return a tuple of all of re's transitions as a state in an NFA."
     tag, r, s = re
-    if tag == 'empty':     return ()
+    if   tag == 'empty':   return ()
     elif tag == 'literal': return ((r, empty),)
     elif tag == 'chain':
         dr_s = chaining(r, s)
@@ -56,7 +56,7 @@ def chaining(r, s):
 def nullable(re):
     "Does re match the empty string?"
     tag, r, s = re
-    if tag == 'empty':     return True
+    if   tag == 'empty':   return True
     elif tag == 'literal': return False
     elif tag == 'chain':   return nullable(r) and nullable(s)
     elif tag == 'either':  return nullable(r) or nullable(s)

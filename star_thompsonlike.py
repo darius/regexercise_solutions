@@ -36,19 +36,19 @@ def run(start, chars):
     return False
 
 def accepts(start):
-    if start == accept:   return True
+    if start == accept:    return True
     tag, r, s = nodes[start]
-    if tag == 'literal':  return False
-    elif tag == 'either': return accepts(r) or accepts(s)
-    elif tag == 'star':   return accepts(s)
+    if   tag == 'literal': return False
+    elif tag == 'either':  return accepts(r) or accepts(s)
+    elif tag == 'star':    return accepts(s)
     else: assert False
 
 def after(ch, start, end):
-    if start == end:      return []
+    if start == end:       return []
     tag, r, s = nodes[start]
-    if tag == 'literal':  return [s] if r == ch else []
-    elif tag == 'either': return after(ch, r, end) + after(ch, s, end)
-    elif tag == 'star':   return after(ch, r, start) + after(ch, s, end)
+    if   tag == 'literal': return [s] if r == ch else []
+    elif tag == 'either':  return after(ch, r, end) + after(ch, s, end)
+    elif tag == 'star':    return after(ch, r, start) + after(ch, s, end)
     else: assert False
 
 # Since the compiled graph has loops in it, we can't represent it as

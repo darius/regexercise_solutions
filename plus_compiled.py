@@ -38,7 +38,7 @@ def prepare(re):
 def moves(re):
     "Return a tuple of all of re's transitions as a state in an NFA."
     tag, r, s = re
-    if tag == 'empty':     return ()
+    if   tag == 'empty':   return ()
     elif tag == 'literal': return ((r, empty),)
     elif tag == 'chain':   return chaining(r, s)
     elif tag == 'either':  return moves(r) + moves(s)
