@@ -16,7 +16,7 @@ def search(re, chars):
     nfa = prepare(re)
     states = set([re])
     for ch in chars:
-        states = set().union(*[nfa[state].get(ch, ()) for state in states])
+        states = set().union(*(nfa[state].get(ch, ()) for state in states))
         if empty in states:
             return True
     return False

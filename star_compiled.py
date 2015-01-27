@@ -18,7 +18,7 @@ def search(re, chars):
         return True
     states = set([re])
     for ch in chars:
-        states = set().union(*[nfa[state].get(ch, ()) for state in states])
+        states = set().union(*(nfa[state].get(ch, ()) for state in states))
         if any(map(nullable, states)):
             return True
     return False
