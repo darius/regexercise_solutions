@@ -4,7 +4,7 @@
 ;;; the pattern's code).
 ;;; Another difference: Thompson mostly didn't allocate registers
 ;;; globally (using self-modifying code to hold some of the pointers)
-;;; and copied the next-states array istead of swapping pointers.
+;;; and copied the next-states array instead of swapping pointers.
 
 ; r1    ch       current character
 ; r2    scratch
