@@ -40,7 +40,7 @@ def after(ch, re):
     else: assert False
 
 def merge(qs, rs):
-    # (a|b) & (c|d) = a&c | a^d | b&c | b&d and will this blow things up?
+    # (a|b) & (c|d) = a&c | a&d | b&c | b&d and will this blow things up?
     return [both(q, r) for q in qs for r in rs]
 
 # Regular-expression constructors; the re above is built by these.
