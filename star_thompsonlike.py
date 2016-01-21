@@ -57,16 +57,16 @@ def after(ch, start, end):
 accept = -1  # A sentinel node that's never accessed.
 nodes = []
 
-def add(tag, r, s):
-    nodes.append((tag, r, s))
+def add(node):
+    nodes.append(node)
     return len(nodes) - 1
 
-def literal(ch):  return lambda k: add('literal', ch, k)
+def literal(ch):  return lambda k: add(('literal', ch, k))
 def chain(r, s):  return lambda k: r(s(k))
-def either(r, s): return lambda k: add('either', r(k), s(k))
+def either(r, s): return lambda k: add(('either', r(k), s(k)))
 def star(r):
     def rstar(k):
-        node = add('star', None, k)
-        nodes[node] = ('star', r(node), k)
-        return node
+        j = add(None)
+        nodes[j] = ('star', r(j), k)
+        return j
     return rstar
