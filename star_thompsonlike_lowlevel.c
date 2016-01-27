@@ -23,12 +23,8 @@ static const char* names[] = {
 
 static void dump1(int pc) {
     printf("%c %2u: %-4s ", accepts[pc] ? '*' : ' ', pc, names[ops[pc]]);
-    if (ops[pc] == op_accept)
-        printf("\n");
-    else if (ops[pc] == op_eat)
-        printf("'%c' %d\n", arg1[pc], arg2[pc]);
-    else
-        printf("%d %d\n", arg1[pc], arg2[pc]);
+    printf(pc == accept ? "\n" : ops[pc] == op_eat ? "'%c' %d\n" : "%d %d\n",
+           arg1[pc], arg2[pc]);
 }
 
 static void dump(void) {
