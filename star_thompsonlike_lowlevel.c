@@ -146,8 +146,10 @@ int main(int argc, char **argv) {
     char line[9999];
     while (fgets(line, sizeof line, stdin)) {
         line[strlen(line) - 1] = '\0';
-        if (matched |= run(start_state, line))
+        if (run(start_state, line)) {
             puts(line);
+            matched = 1;
+        }
     }
     return matched ? 0 : 1;
 }
